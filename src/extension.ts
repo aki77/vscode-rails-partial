@@ -3,7 +3,7 @@
 import * as fs from "fs-extra";
 import * as path from "path";
 import * as vscode from "vscode";
-import PartialDefinitionProvider from "./partial_definition_provider";
+import PartialDefinitionProvider from "./PartialDefinitionProvider";
 import PartialCompletionProvider from "./PartialCompletionProvider";
 
 const isRailsWorkSpace = async (rootPath: string) => {
@@ -26,12 +26,12 @@ export async function activate(context: vscode.ExtensionContext) {
     )
   );
 
-  const triggerCharacters = ".abcdefghijklmnopqrstuvwxyz'\"".split("");
   context.subscriptions.push(
     vscode.languages.registerCompletionItemProvider(
       ["erb", "haml", "slim"],
       new PartialCompletionProvider(),
-      ...triggerCharacters
+      '"',
+      "'"
     )
   );
 }
