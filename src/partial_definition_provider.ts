@@ -1,25 +1,19 @@
 "use strict";
 
 import * as path from "path";
-import * as fs from "fs";
+import { pathExistsSync } from "fs-extra";
 import {
   DefinitionProvider,
   TextDocument,
   Location,
   Position,
-  Uri,
-  workspace
+  Uri
 } from "vscode";
 
 export default class PartialDefinitionProvider implements DefinitionProvider {
-  public async provideDefinition(document: TextDocument, position: Position) {
-    const rootPath = workspace.workspaceFolders
-      ? workspace.workspaceFolders[0].uri.fsPath
-      : null;
-    if (!rootPath) {
-      return null;
-    }
+  constructor(private rootPath: string) {}
 
+  public async provideDefinition(document: TextDocument, position: Position) {
     const line = document.lineAt(position.line).text;
     if (!line.includes("render")) {
       return null;
@@ -30,7 +24,7 @@ export default class PartialDefinitionProvider implements DefinitionProvider {
       return null;
     }
 
-    return this.partialLocation(rootPath, document.fileName, partialName);
+    return this.partialLocation(document.fileName, partialName);
   }
 
   private partialName(line: string) {
@@ -41,17 +35,13 @@ export default class PartialDefinitionProvider implements DefinitionProvider {
     return result ? result[1] : null;
   }
 
-  private partialLocation(
-    rootPath: string,
-    currentFileName: string,
-    partialName: string
-  ) {
+  private partialLocation(currentFileName: string, partialName: string) {
     const configExtensions = ["html.erb", "html.slim", "html.haml"];
 
     const fileBase = currentFileName.includes("/")
       ? path.join(path.dirname(currentFileName), `_${partialName}`)
       : path.join(
-          rootPath,
+          this.rootPath,
           "app",
           "views",
           path.dirname(partialName),
@@ -59,7 +49,7 @@ export default class PartialDefinitionProvider implements DefinitionProvider {
         );
 
     const targetExt = configExtensions.find(ext => {
-      return fs.existsSync(`${fileBase}.${ext}`);
+      return pathExistsSync(`${fileBase}.${ext}`);
     });
 
     return targetExt
