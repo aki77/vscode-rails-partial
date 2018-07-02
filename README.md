@@ -1,6 +1,6 @@
 # Rails Partial
 
-This is the README for your extension "rails-partial". After writing up a brief description, we recommend including the following sections.
+Definition and Completion provider for Rails Partial.
 
 ## Features
 
@@ -14,39 +14,13 @@ For example if there is an image subfolder under your extension project workspac
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+If you want to change template engine like haml, override default setting in setting view.
 
-For example:
-
-This extension contributes the following settings:
-
-- `myExtension.enable`: enable/disable this extension
-- `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- `railsPartial.viewFileExtensions`: `[html.haml, html.slim, html.erb]`
 
 ## TODO
 
-- [ ] config
-- [ ] autocomplete
+- [x] config
+- [x] autocomplete
 - [ ] readme
-- [ ] fix PartialDefinitionProvider
-
----
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-- Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-- Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-- Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- [x] fix PartialDefinitionProvider

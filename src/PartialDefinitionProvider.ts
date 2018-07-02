@@ -7,7 +7,8 @@ import {
   TextDocument,
   Location,
   Position,
-  Uri
+  Uri,
+  workspace
 } from "vscode";
 
 export default class PartialDefinitionProvider implements DefinitionProvider {
@@ -36,22 +37,26 @@ export default class PartialDefinitionProvider implements DefinitionProvider {
   }
 
   private partialLocation(currentFileName: string, partialName: string) {
-    const configExtensions = ["html.erb", "html.slim", "html.haml"];
+    const viewFileExtensions: string[] = workspace.getConfiguration(
+      "railsPartial"
+    ).viewFileExtensions;
 
-    const fileBase = currentFileName.includes("/")
-      ? path.join(path.dirname(currentFileName), `_${partialName}`)
-      : path.join(
+    const fileBase = partialName.includes("/")
+      ? path.join(
           this.rootPath,
           "app",
           "views",
           path.dirname(partialName),
           `_${path.basename(partialName)}`
-        );
+        )
+      : path.join(path.dirname(currentFileName), `_${partialName}`);
 
-    const targetExt = configExtensions.find(ext => {
+    const targetExt = viewFileExtensions.find(ext => {
       return pathExistsSync(`${fileBase}.${ext}`);
     });
 
+    // TODO: Definition link API
+    // https://github.com/Microsoft/vscode/pull/52230
     return targetExt
       ? new Location(Uri.file(`${fileBase}.${targetExt}`), new Position(0, 0))
       : null;
