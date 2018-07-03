@@ -4,6 +4,7 @@
   "description": "Definition and Completion provider for Rails Partial.",
   "version": "0.0.1",
   "publisher": "aki77",
+  "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.24.0"
   },
@@ -14,6 +15,7 @@
     "type": "git",
     "url": "https://github.com/aki77/vscode-rails-partial.git"
   },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/aki77/vscode-rails-partial/issues"
   },
