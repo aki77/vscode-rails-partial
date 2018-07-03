@@ -1,7 +1,7 @@
 {
   "name": "rails-partial",
   "displayName": "Rails Partial",
-  "description": "",
+  "description": "Definition and Completion provider for Rails Partial.",
   "version": "0.0.1",
   "publisher": "aki77",
   "engines": {
@@ -10,6 +10,13 @@
   "categories": [
     "Other"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aki77/vscode-rails-partial.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aki77/vscode-rails-partial/issues"
+  },
   "activationEvents": [
     "onLanguage:haml",
     "onLanguage:erb"
@@ -52,6 +59,5 @@
     "tslint": "^5.8.0",
     "typescript": "^2.6.1",
     "vscode": "^1.1.6"
-  },
-  "dependencies": {}
+  }
 }

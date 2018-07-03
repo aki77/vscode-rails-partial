@@ -4,13 +4,13 @@ Definition and Completion provider for Rails Partial.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Definition
 
-For example if there is an image subfolder under your extension project workspace:
+[![https://gyazo.com/f47ef367e1b2b26a9bb566b3be0e5034](https://i.gyazo.com/f47ef367e1b2b26a9bb566b3be0e5034.gif)](https://gyazo.com/f47ef367e1b2b26a9bb566b3be0e5034)
 
-\!\[feature X\]\(images/feature-x.png\)
+Completion
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+[![https://gyazo.com/c4ab035dd8a47b3c1de0ebf2160e78d7](https://i.gyazo.com/c4ab035dd8a47b3c1de0ebf2160e78d7.gif)](https://gyazo.com/c4ab035dd8a47b3c1de0ebf2160e78d7)
 
 ## Extension Settings
 
@@ -18,9 +18,8 @@ If you want to change template engine like haml, override default setting in set
 
 - `railsPartial.viewFileExtensions`: `[html.haml, html.slim, html.erb]`
 
+> Tip: We recommend to set the value of `editor.suggestSelection` setting to `recentlyUsedByPrefix` or `first`.
+
 ## TODO
 
-- [x] config
-- [x] autocomplete
-- [ ] readme
-- [x] fix PartialDefinitionProvider
+- [ ] test
