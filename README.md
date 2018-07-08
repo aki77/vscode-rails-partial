@@ -18,8 +18,6 @@ If you want to change template engine like haml, override default setting in set
 
 - `railsPartial.viewFileExtensions`: `[html.haml, html.slim, html.erb]`
 
-> Tip: We recommend to set the value of `editor.suggestSelection` setting to `recentlyUsedByPrefix` or `first`.
-
 ## TODO
 
 - [ ] test

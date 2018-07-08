@@ -9,9 +9,6 @@ import {
   CompletionItemKind,
   Uri
 } from "vscode";
-// NOTE: https://github.com/lodash/lodash/issues/3192
-import sortBy = require("lodash/sortBy");
-import padStart = require("lodash/padStart");
 
 const LINE_REGEXP = /[^a-z.]render(?:\s+|\()['"]([a-zA-Z0-9_/]*)$/;
 
@@ -55,7 +52,7 @@ export default class PartialCompletionProvider
 
   private async buildCompletionItems(
     document: TextDocument
-  ): Promise<CompletionItem[]> {
+  ): Promise<CompletionItem[] | null> {
     const partialPaths = await workspace.findFiles("app/views/**/_*");
     const viewPaths = partialPaths.map(viewPathForRelativePath);
     const currentViewPath = viewPathForRelativePath(document.uri);
@@ -67,13 +64,17 @@ export default class PartialCompletionProvider
       };
     });
 
-    return sortBy(itemsWithScore, "score")
-      .reverse()
-      .map(({ item }, index) => {
-        // NOTE: score
-        item.sortText = padStart(index.toString(), 4, "0");
-        return item;
-      });
+    const scores = itemsWithScore.map(({ score }) => score);
+    const maxScore = Math.max(...scores);
+    const maxScoreItemWithScore = itemsWithScore.find(
+      ({ score }) => score === maxScore
+    );
+    if (!maxScoreItemWithScore) {
+      return null;
+    }
+    maxScoreItemWithScore.item.preselect = true;
+
+    return itemsWithScore.map(({ item }) => item);
   }
 
   private buildCompletionItem(viewPath: string): CompletionItem {
