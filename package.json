@@ -2,7 +2,7 @@
   "name": "rails-partial",
   "displayName": "Rails Partial",
   "description": "Definition and Completion provider for Rails Partial.",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "publisher": "aki77",
   "icon": "images/icon.png",
   "engines": {
