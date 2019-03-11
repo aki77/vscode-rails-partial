@@ -21,6 +21,7 @@
   },
   "activationEvents": [
     "onLanguage:haml",
+    "onLanguage:slim",
     "onLanguage:erb"
   ],
   "main": "./out/extension",
