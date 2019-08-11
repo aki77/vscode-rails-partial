@@ -3,6 +3,7 @@
 ## 0.2.0
 
 - Update dependencies
+- Support for Definition link API
 
 ## 0.1.0
 

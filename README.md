@@ -20,5 +20,5 @@ If you want to change template engine like haml, override default setting in set
 
 ## TODO
 
-- [ ] Support for [Definition link API](https://github.com/Microsoft/vscode/pull/52230)
+- [x] Support for [Definition link API](https://github.com/Microsoft/vscode/pull/52230)
 - [ ] test

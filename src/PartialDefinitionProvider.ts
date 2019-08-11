@@ -1,11 +1,10 @@
-"use strict";
-
 import * as path from "path";
 import { pathExistsSync } from "fs-extra";
 import {
   DefinitionProvider,
+  Range,
   TextDocument,
-  Location,
+  LocationLink,
   Position,
   Uri,
   workspace
@@ -25,7 +24,12 @@ export default class PartialDefinitionProvider implements DefinitionProvider {
       return null;
     }
 
-    return this.partialLocation(document.fileName, partialName);
+    const range = document.getWordRangeAtPosition(position, /[\w/]+/);
+    if (!range) {
+      return null;
+    }
+
+    return this.partialLocation(document.fileName, partialName, range);
   }
 
   private partialName(line: string) {
@@ -36,7 +40,11 @@ export default class PartialDefinitionProvider implements DefinitionProvider {
     return result ? result[1] : null;
   }
 
-  private partialLocation(currentFileName: string, partialName: string) {
+  private partialLocation(
+    currentFileName: string,
+    partialName: string,
+    originSelectionRange: Range
+  ): LocationLink[] | null {
     const viewFileExtensions: string[] = workspace.getConfiguration(
       "railsPartial"
     ).viewFileExtensions;
@@ -55,10 +63,16 @@ export default class PartialDefinitionProvider implements DefinitionProvider {
       return pathExistsSync(`${fileBase}.${ext}`);
     });
 
-    // TODO: Definition link API
-    // https://github.com/Microsoft/vscode/pull/52230
-    return targetExt
-      ? new Location(Uri.file(`${fileBase}.${targetExt}`), new Position(0, 0))
-      : null;
+    if (!targetExt) {
+      return null;
+    }
+
+    return [
+      {
+        originSelectionRange,
+        targetUri: Uri.file(`${fileBase}.${targetExt}`),
+        targetRange: new Range(new Position(0, 0), new Position(0, 0))
+      }
+    ];
   }
 }
