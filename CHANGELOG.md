@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3.0
+
+- Add CodeActionProvider
+
 ## 0.2.0
 
 - Update dependencies

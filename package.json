@@ -1,7 +1,7 @@
 {
   "name": "rails-partial",
   "displayName": "Rails Partial",
-  "description": "Definition and Completion provider for Rails Partial.",
+  "description": "Definition, Completion and CodeAction provider for Rails Partial.",
   "version": "0.2.0",
   "publisher": "aki77",
   "icon": "images/icon.png",
@@ -21,7 +21,8 @@
   },
   "activationEvents": [
     "onLanguage:haml",
-    "onLanguage:erb"
+    "onLanguage:erb",
+    "onLanguage:slim"
   ],
   "main": "./out/extension",
   "contributes": {

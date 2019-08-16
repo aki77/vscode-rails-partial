@@ -3,10 +3,15 @@ import * as path from "path";
 import * as vscode from "vscode";
 import PartialDefinitionProvider from "./PartialDefinitionProvider";
 import PartialCompletionProvider from "./PartialCompletionProvider";
+import PartialCodeActionProvider, {
+  createPartialFromSelection
+} from "./PartialCodeActionProvider";
 
 const isRailsWorkSpace = async (rootPath: string) => {
   return await fs.pathExists(path.join(rootPath, "config", "environment.rb"));
 };
+
+const SELECTOR = ["erb", "haml", "slim"];
 
 export async function activate(context: vscode.ExtensionContext) {
   const rootPath = vscode.workspace.workspaceFolders
@@ -19,17 +24,34 @@ export async function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.languages.registerDefinitionProvider(
-      ["erb", "haml", "slim"],
+      SELECTOR,
       new PartialDefinitionProvider(rootPath)
     )
   );
 
   context.subscriptions.push(
     vscode.languages.registerCompletionItemProvider(
-      ["erb", "haml", "slim"],
+      SELECTOR,
       new PartialCompletionProvider(),
       '"',
       "'"
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "railsPartial.createFromSelection",
+      createPartialFromSelection
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.languages.registerCodeActionsProvider(
+      SELECTOR,
+      new PartialCodeActionProvider(),
+      {
+        providedCodeActionKinds: [vscode.CodeActionKind.RefactorExtract]
+      }
     )
   );
 }
