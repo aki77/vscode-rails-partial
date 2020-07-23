@@ -2,7 +2,7 @@
   "name": "rails-partial",
   "displayName": "Rails Partial",
   "description": "Definition, Completion and CodeAction provider for Rails Partial.",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "publisher": "aki77",
   "icon": "images/icon.png",
   "engines": {
