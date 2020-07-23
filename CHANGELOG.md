@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3.1
+
+- Remove fs-extra
+
 ## 0.3.0
 
 - Add CodeActionProvider

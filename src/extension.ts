@@ -1,4 +1,5 @@
-import * as fs from "fs-extra";
+import * as fs from "fs";
+import * as util from "util";
 import * as path from "path";
 import * as vscode from "vscode";
 import PartialDefinitionProvider from "./PartialDefinitionProvider";
@@ -7,8 +8,15 @@ import PartialCodeActionProvider, {
   createPartialFromSelection
 } from "./PartialCodeActionProvider";
 
+const accessAsync = util.promisify(fs.access);
+
 const isRailsWorkSpace = async (rootPath: string) => {
-  return await fs.pathExists(path.join(rootPath, "config", "environment.rb"));
+  try {
+    await accessAsync(path.join(rootPath, "config", "environment.rb"), fs.constants.R_OK);
+    return true;
+  } catch (error) {
+    return false;
+  }
 };
 
 const SELECTOR = ["erb", "haml", "slim"];

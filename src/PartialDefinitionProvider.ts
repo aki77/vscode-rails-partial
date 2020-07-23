@@ -1,5 +1,5 @@
 import * as path from "path";
-import { pathExistsSync } from "fs-extra";
+import * as fs from "fs";
 import {
   DefinitionProvider,
   Range,
@@ -60,7 +60,12 @@ export default class PartialDefinitionProvider implements DefinitionProvider {
       : path.join(path.dirname(currentFileName), `_${partialName}`);
 
     const targetExt = viewFileExtensions.find(ext => {
-      return pathExistsSync(`${fileBase}.${ext}`);
+      try {
+        fs.accessSync(`${fileBase}.${ext}`, fs.constants.R_OK);
+        return true;
+      } catch (error) {
+        return false;
+      }
     });
 
     if (!targetExt) {
