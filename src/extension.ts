@@ -26,7 +26,7 @@ export async function activate(context: vscode.ExtensionContext) {
     ? vscode.workspace.workspaceFolders[0].uri.fsPath
     : null;
 
-  if (!rootPath || (await !isRailsWorkSpace(rootPath))) {
+  if (!rootPath || !(await isRailsWorkSpace(rootPath))) {
     return;
   }
 
