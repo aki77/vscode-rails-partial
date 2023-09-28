@@ -33,7 +33,7 @@ export default class PartialDefinitionProvider implements DefinitionProvider {
   }
 
   private partialName(line: string) {
-    const regex = line.includes("partial")
+    const regex = /render\s+:?partial/.test(line)
       ? /render\s*\(?\s*\:?partial(?:\s*=>|:*)\s*["'](.+?)["']/
       : /render\s*\(?\s*["'](.+?)["']/;
     const result = line.match(regex);
