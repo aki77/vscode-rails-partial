@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3.6
+
+- Update dependencies
+
 ## 0.3.1
 
 - Remove fs-extra
