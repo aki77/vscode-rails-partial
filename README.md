@@ -1,5 +1,8 @@
 # Rails Partial
 
+> [!WARNING]
+> **This extension is deprecated.** Please migrate to the [ruby-lsp-rails-partial](https://github.com/aki77/ruby-lsp-rails-partial) gem, a Ruby LSP add-on that provides the same Definition, Completion, and Hover features for Rails partials. It works across any editor that supports Ruby LSP.
+
 Definition, Completion and CodeAction provider for Rails Partial.
 
 ## Features
